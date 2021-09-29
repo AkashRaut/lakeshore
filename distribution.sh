@@ -5,7 +5,7 @@ echo $Status
 if [ $Status = $Pass ]
 then
 npm install -g appcenter-cli
-appcenter login --token 37b676e6877956014e29c481bc158d151aa0c3a6
+appcenter login --token $Appcenter
 appcenter apps set-current akash.raut/demo
 appcenter distribute release --app akash.raut/demo --file /var/lib/jenkins/workspace/browserstack-test/Lakeshore.ipa --group "Collaborators,Beta-testers" 
 echo "Build is Distributed"
