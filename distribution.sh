@@ -11,4 +11,5 @@ appcenter distribute release --app akash.raut/demo --file /var/lib/jenkins/works
 echo "Build is Distributed"
 else
 echo "Build Failed"
+exit 1
 fi
