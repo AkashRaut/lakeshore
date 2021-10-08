@@ -1,11 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Example: Change bundle name of an iOS app for non-production
-if [ "$APPCENTER_BRANCH" != "master" ];
-then
-    VERSION_CODE=$((VERSION_CODE_SHIFT + APPCENTER_BUILD_ID))
-    plutil -replace CFBundleVersion -string "$VERSION_CODE"
-    $APPCENTER_SOURCE_DIRECTORY/ios/ReactNativeStarter/Info.plist
-
-
+branch=${1:-'master'}
+buildNumber=$(expr $(git rev-list $branch --count) - $(git rev-list HEAD..$branch --count))
+echo "Updating build number to $buildNumber using branch '$branch'."
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $buildNumber" "${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+if [ -f "${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist" ]; then
+/usr/libexec/PlistBuddy -c "Set :CFBundleVersion $buildNumber" "${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}.dSYM/Contents/Info.plist"
 fi
