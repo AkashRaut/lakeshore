@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-# Example: Change bundle name of an iOS app for non-production
-if [ "$APPCENTER_BRANCH" != "master" ];
-then
-    VERSION_CODE=$((VERSION_CODE_SHIFT + APPCENTER_BUILD_ID))
-    plutil -replace CFBundleVersion -string "$VERSION_CODE"
+    latestTag=$(git describe --tags $(git rev-list --tags --max-count=1))
+    echo $latestTag
+
+    plutil -replace CFBundleVersion -string "$latestTag"
     $APPCENTER_SOURCE_DIRECTORY/ios/ReactNativeStarter/Info.plist
 
-
-fi
