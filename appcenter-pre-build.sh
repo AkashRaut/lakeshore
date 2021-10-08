@@ -2,6 +2,7 @@
 
     latestTag=$(git describe --tags $(git rev-list --tags --max-count=1))
     echo $latestTag
-
-    plutil -replace CFBundleVersion -string "$latestTag" -i $APPCENTER_SOURCE_DIRECTORY/ios/ReactNativeStarter/Info.plist
+    chmod a+x '$APPCENTER_SOURCE_DIRECTORY/ios/ReactNativeStarter/Info.plist'
+    plutil -replace CFBundleVersion -string "$latestTag" 
+    $APPCENTER_SOURCE_DIRECTORY/ios/ReactNativeStarter/Info.plist
 
